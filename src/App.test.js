@@ -1,4 +1,67 @@
-import {reduceDateRangesForAGivenDate, filterDateInAnyGivenDateRange} from './App'
+import {
+  reduceDateRangesForAGivenDate,
+  filterDateInAnyGivenDateRange,
+  getDatesBetweenARangeAndOutOfProvidedDateRanges,
+  getAllDatesBetweenARange
+} from './App'
+
+describe('getAllDatesBetweenARange', () => {
+  const range = {
+    from: new Date(2019, 10, 15),
+    to: new Date(2019, 11, 31)
+  }
+  const results = getAllDatesBetweenARange(range);
+  const testDates = [
+    new Date(2019, 10, 10),   // 0
+    new Date(2019, 10, 15),   // 1
+    new Date(2019, 10, 20),   // 2
+    new Date(2019, 11, 20),   // 3
+    new Date(2019, 11, 30),   // 4
+    new Date(2020, 0, 10),    // 5
+  ];
+
+  test('result type', ()=> {
+    expect(Array.isArray(results)).toBe(true);
+  })
+  test('test-dates are included in array', ()=> {
+    const mappedResults = results.map(dt => dt.toString())
+    const mappedTestDates = testDates.map(dt => dt.toString())
+    expect(mappedResults).not.toContain(mappedTestDates[0]);
+    expect(mappedResults).toContain(mappedTestDates[1]);
+    expect(mappedResults).toContain(mappedTestDates[2]);
+    expect(mappedResults).toContain(mappedTestDates[3]);
+    expect(mappedResults).toContain(mappedTestDates[4]);
+    expect(mappedResults).not.toContain(mappedTestDates[5]);
+  })
+})
+
+describe('getDatesBetweenARangeAndOutOfProvidedDateRanges', ()=> {
+  let mockInBetweenRange, mockDateRanges, results;
+  beforeEach(()=> {
+    mockInBetweenRange = {
+      from: new Date(2019, 10, 10), // 2019, November 11
+      to: new Date(2020, 1, 15) // 2020, February 16
+    };
+     mockDateRanges = [
+      { from: new Date(2019,11,5), to: new Date(2019, 11, 22) },
+      { from: new Date(2019,11,3),to: new Date(2019, 11, 10) },
+    ]
+    results = getDatesBetweenARangeAndOutOfProvidedDateRanges(mockDateRanges, mockInBetweenRange);
+  });
+  test('result-type', () => {
+    expect(Array.isArray(results)).toBe(true);
+  })
+  test('should return an array that is between the `inBetweenRange - to and from values` and outside any of the `dateRanges` ', ()=> {
+    const mappedResults = results.map(dt => dt.toString());
+    expect(mappedResults).toContain(new Date(2019, 10, 10).toString());
+    expect(mappedResults).toContain(new Date(2019, 10, 15).toString());
+    expect(mappedResults).not.toContain(new Date(2019, 11, 5).toString());
+    expect(mappedResults).toContain(new Date(2019, 11, 2).toString());
+    expect(mappedResults).not.toContain(new Date(2019, 11, 20).toString());
+    expect(mappedResults).toContain(new Date(2019, 11, 25).toString());
+  })
+})
+
 describe('removeDatesInDateRangesFromList', ()=> {
   let dateRanges;
 
