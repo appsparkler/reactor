@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import React from 'react';
+// import moment from 'moment'
+//
+// // const dateRanges = [
+// //   {
+// //     from: new Date(2019,11,2),
+// //     to: new Date(2019, 11, 10)
+// //   },{
+// //     from: new Date(2019,11,19),
+// //     to: new Date(2019, 11, 25)
+// //   }
+// // ]
+//
+// // const betweenDates = {
+// //   from: new Date(2019, 10, 15),
+// //   to: new Date(2020, 0, 10)
+// // }
+//
+// // const results = getResults(dateRanges, betweenDates)
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export function reduceDateRanges(dt, r, {from, to}, idx, arr) {
+  console.log((dt < from))
+  if(!r) {
+    r = !((dt > from) && (dt < to))
+  }
+  return r;
 }
 
-export default App;
+// function reduceAllDatesToResults(dateRanges, r, dt, idx, arr) {
+//   const shouldDateBeIncludedInResults = dateRanges.reduce(reduceDateRanges.bind(null, dt), false);
+//   if (shouldDateBeIncludedInResults) r.push(dt.toDate());
+//   return r;
+// }
+//
+// export function getResults(dateRanges, {from, to}) {
+//   let results = [];
+//   try {
+//     const allDatesBetween = [];
+//     for(let i = moment(from).clone(); i < moment(to); i.add(1, 'days')) {
+//       allDatesBetween.push(i.clone());
+//     }
+//     // remove any date that is between the range of the above Dates
+//     results = allDatesBetween.reduce(reduceAllDatesToResults.bind(null, dateRanges), []);
+//   } catch (e) {
+//
+//   }
+//   return results;
+// }
