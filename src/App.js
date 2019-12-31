@@ -24,7 +24,7 @@ export function reduceDateRangesForAGivenDate(dt, r, {from, to}, idx, arr) {
   return r;
 }
 
-export function removeDatesInDateRangesFromList(dateRanges, r, dt, idx, arr) {
+export function filterDateInAnyGivenDateRange(dateRanges, r, dt, idx, arr) {
   const shouldDateBeIncludedInResults = dateRanges.reduce(reduceDateRangesForAGivenDate.bind(null, dt), 0);
   // console.log(shouldDateBeIncludedInResults)
   if(shouldDateBeIncludedInResults === 0) r.push(dt)

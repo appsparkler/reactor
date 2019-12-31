@@ -1,4 +1,4 @@
-import {reduceDateRangesForAGivenDate, removeDatesInDateRangesFromList} from './App'
+import {reduceDateRangesForAGivenDate, filterDateInAnyGivenDateRange} from './App'
 describe('removeDatesInDateRangesFromList', ()=> {
   let dateRanges;
 
@@ -24,7 +24,7 @@ describe('removeDatesInDateRangesFromList', ()=> {
       new Date(2019, 11, 22), //10
       new Date(2019, 11, 24), //10
     ];
-    const results = allDates.reduce(removeDatesInDateRangesFromList.bind(null, dateRanges), []);
+    const results = allDates.reduce(filterDateInAnyGivenDateRange.bind(null, dateRanges), []);
     expect(results).toContain(allDates[4])
     expect(results).toContain(allDates[3]);
     expect(results).not.toContain(allDates[8]);
