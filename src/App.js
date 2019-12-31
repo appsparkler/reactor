@@ -17,18 +17,19 @@
 // // }
 //
 // // const results = getResults(dateRanges, betweenDates)
-
+// console.log(moment(new Date(2019, 11, 31)).format('HH:mm'))
 
 export function reduceDateRangesForAGivenDate(dt, r, {from, to}, idx, arr) {
   r = (dt >= from) && (dt <= to) ? r + 1 : r;
   return r;
 }
 
-// function reduceAllDatesToResults(dateRanges, r, dt, idx, arr) {
-//   const shouldDateBeIncludedInResults = dateRanges.reduce(reduceDateRanges.bind(null, dt), false);
-//   if (shouldDateBeIncludedInResults) r.push(dt.toDate());
-//   return r;
-// }
+export function removeDatesInDateRangesFromList(dateRanges, r, dt, idx, arr) {
+  const shouldDateBeIncludedInResults = dateRanges.reduce(reduceDateRangesForAGivenDate.bind(null, dt), 0);
+  // console.log(shouldDateBeIncludedInResults)
+  if(shouldDateBeIncludedInResults === 0) r.push(dt)
+  return r;
+}
 //
 // export function getResults(dateRanges, {from, to}) {
 //   let results = [];
