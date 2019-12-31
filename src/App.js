@@ -19,11 +19,8 @@
 // // const results = getResults(dateRanges, betweenDates)
 
 
-export function reduceDateRanges(dt, r, {from, to}, idx, arr) {
-  console.log((dt < from))
-  if(!r) {
-    r = !((dt > from) && (dt < to))
-  }
+export function reduceDateRangesForAGivenDate(dt, r, {from, to}, idx, arr) {
+  r = (dt >= from) && (dt <= to) ? r + 1 : r;
   return r;
 }
 
