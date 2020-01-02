@@ -7,12 +7,16 @@ const INITIAL_STATE = {
 }
 
 export default () => {
-  let {values, handleChange, handleSubmit} = useFormValidation(INITIAL_STATE)
+  let {values, errors, handleChange, handleSubmit} = useFormValidation(INITIAL_STATE)
   return (
     <form onSubmit={handleSubmit}>
-      <p>{values.email}</p>
+      <p className="text-danger">{values.errors}</p>
       <div className="form-group">
-        <div className="small text-danger">Email error...</div>
+        {
+          errors.email && <div className="small text-danger">
+            {errors.email}
+          </div>
+        }
         <input
           type="email"
           className="form-control"
@@ -26,7 +30,11 @@ export default () => {
       </div>
 
       <div className="form-group">
-        <small className="text-danger">Password error...</small>
+        {
+          errors.password && <div className="small text-danger">
+            {errors.password}
+          </div>
+        }
         <input
           type="password"
           className="form-control"
@@ -44,7 +52,10 @@ export default () => {
           Include in mailing list?
         </label>
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
     </form>
   )
 }
