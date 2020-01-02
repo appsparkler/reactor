@@ -7,9 +7,9 @@ const INITIAL_STATE = {
 }
 
 export default () => {
-  let {values, handleChange} = useFormValidation(INITIAL_STATE)
+  let {values, handleChange, handleSubmit} = useFormValidation(INITIAL_STATE)
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <p>{values.email}</p>
       <div className="form-group">
         <div className="small text-danger">Email error...</div>
@@ -18,6 +18,7 @@ export default () => {
           className="form-control"
           name="email"
           value={values.email}
+          autoComplete="username"
           onChange={handleChange}
           aria-describedby="emailHelp"
           placeholder="Enter email"
@@ -29,8 +30,11 @@ export default () => {
         <input
           type="password"
           className="form-control"
-          id="exampleInputPassword1"
-          placeholder="Password"
+          name="password"
+          placeholder="Password..."
+          autoComplete="current-password"
+          onChange={handleChange}
+          value={values.password}
         />
       </div>
 
